@@ -12,7 +12,7 @@ interface Props {
   actors: Actor[];
 }
 
-const SearchResult: React.FC<Props> = ({ actors }) => {
+const SearchResult: React.FC<Props> = React.memo(({ actors }) => {
   return (
     <div className="search_result_container">
       {actors &&
@@ -35,6 +35,6 @@ const SearchResult: React.FC<Props> = ({ actors }) => {
         })}
     </div>
   );
-};
+});
 
 export default SearchResult;
