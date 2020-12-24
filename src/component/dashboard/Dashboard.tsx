@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
-import SearchResult from "../list/SearchResult";
-import SearchInput from "../search/SearchInput";
-import api from "../../api/api";
-import "./Dashboard.css";
+import { Button } from "@material-ui/core";
 import { AxiosResponse } from "axios";
+import React, { useEffect, useState } from "react";
+import api from "../../api/api";
+import SearchResult from "../list/SearchResult";
+import { User } from "../login/Login";
+import SearchInput from "../search/SearchInput";
+import "./Dashboard.css";
 
 export interface Actor {
   char_id: number;
@@ -12,7 +14,11 @@ export interface Actor {
   nickname: string;
 }
 
-const Dashboard: React.FC = () => {
+interface Props {
+  handleLogin: (user: User) => void;
+}
+
+const Dashboard: React.FC<Props> = ({ handleLogin }) => {
   const [searchText, setSearchText] = useState<string>("");
   const [actors, setActors] = useState<Actor[]>([]);
 
@@ -40,6 +46,15 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard_container">
+      <div style={{ alignSelf: "flex-end" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => handleLogin({ userName: "root", password: "root" })}
+        >
+          Logout
+        </Button>
+      </div>
       <SearchInput handleSearch={setSearchText}></SearchInput>
       <SearchResult actors={actors}></SearchResult>
     </div>
