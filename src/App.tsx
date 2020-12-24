@@ -8,6 +8,7 @@ import {
 import "./App.css";
 import Dashboard from "./component/dashboard/Dashboard";
 import Login, { User } from "./component/login/Login";
+import PageNotFound from "./component/pagenotfound/PageNotFound";
 
 const App = () => {
   const [isUserSigned, setIsUserSigned] = useState<boolean>(false);
@@ -41,6 +42,9 @@ const App = () => {
             ) : (
               <Redirect to="/login"></Redirect>
             )}
+          </Route>
+          <Route path="*">
+            <PageNotFound></PageNotFound>
           </Route>
         </Switch>
       </Router>
