@@ -1,12 +1,21 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-} from "@material-ui/core";
 import React from "react";
+import "../../webcomponent/ActorCard";
 import { Actor } from "../dashboard/Dashboard";
 import "./SearchResult.css";
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "actor-card": ActorCardProps;
+    }
+  }
+}
+interface ActorCardProps {
+  key: number;
+  name: string;
+  img: string;
+  nickname: string;
+}
 
 interface Props {
   actors: Actor[];
@@ -18,19 +27,12 @@ const SearchResult: React.FC<Props> = React.memo(({ actors }) => {
       {actors &&
         actors.map((actor) => {
           return (
-            <Card className="actor_container" key={actor.char_id}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  image={actor.img}
-                  className="image_container"
-                />
-                <CardContent>
-                  <h1>{actor.name}</h1>
-                  <p>{actor.nickname}</p>
-                </CardContent>
-              </CardActionArea>
-            </Card>
+            <actor-card
+              key={actor.char_id}
+              name={actor.name}
+              img={actor.img}
+              nickname={actor.nickname}
+            ></actor-card>
           );
         })}
     </div>
